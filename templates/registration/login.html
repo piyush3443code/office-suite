@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign In - Office Suite{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <h1 class="auth-title">Welcome Back</h1>
+        <p class="auth-subtitle">Please sign in to your dashboard</p>
+
+        <form method="post">
+            {% csrf_token %}
+            {% if form.errors %}
+            <div style="color: var(--color-error); font-size: 0.875rem; margin-bottom: 1rem; text-align: center;">
+                Your username and password didn't match. Please try again.
+            </div>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="{{ form.username.id_for_label }}">Username</label>
+                <input type="text" name="username" class="form-control" id="{{ form.username.id_for_label }}" required
+                    autofocus>
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.password.id_for_label }}">Password</label>
+                <input type="password" name="password" class="form-control" id="{{ form.password.id_for_label }}"
+                    required>
+                <div style="text-align: right; margin-top: 0.25rem;">
+                    <a href="{% url 'forgot_password' %}"
+                        style="font-size: 0.75rem; color: var(--color-primary); text-decoration: none;">Forgot
+                        Password?</a>
+                </div>
+            </div>
+
+            <button type="submit">Sign In</button>
+        </form>
+
+        <div class="text-center mt-4 text-sm">
+            <span style="color: var(--color-text-muted);">Don't have an account?</span>
+            <a href="{% url 'signup' %}" class="link">Sign up</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

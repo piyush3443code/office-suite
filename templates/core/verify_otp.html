@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Verify OTP - Office Suite{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <h1 class="auth-title">Verify OTP</h1>
+        <p class="auth-subtitle">Enter the 6-digit code sent to your email</p>
+
+        <form method="post">
+            {% csrf_token %}
+            {% if messages %}
+            {% for message in messages %}
+            <div style="color: var(--color-text-muted); text-align: center; margin-bottom: 1rem;">{{ message }}</div>
+            {% endfor %}
+            {% endif %}
+
+            <div class="form-group">
+                <label for="{{ form.otp_code.id_for_label }}">OTP Code</label>
+                <input type="text" name="{{ form.otp_code.name }}" id="{{ form.otp_code.id_for_label }}"
+                    class="form-control" maxlength="6" required>
+                {% if form.otp_code.errors %}
+                <div style="color: var(--color-error); font-size: 0.75rem;">{{ form.otp_code.errors }}</div>
+                {% endif %}
+            </div>
+
+            <button type="submit">Verify Code</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
